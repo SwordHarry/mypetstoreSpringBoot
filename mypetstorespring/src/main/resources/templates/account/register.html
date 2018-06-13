@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/template_head::head('Reigster')">
+
+</head>
+
+<body>
+<header th:replace="common/template_menu::header">
+</header>
+
+<div id="Content">
+    <div id="Catalog">
+        <a href="/account/register?lang=en_US" > English</a>
+        <a href="/account/register?lang=zh_CN" > 中文</a>
+        <form action="/account/register" method="post" name="registerForm" onsubmit="return validate()">
+            <h3 th:text="#{Information}">User Information</h3>
+
+            <table>
+                <tr>
+                    <td th:text="#{username}">User ID:</td>
+                    <td>
+                        <input type="text" id="username" name="username" onblur="usernameIsExist()"/>
+                        <div id="usernameMsg"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td  th:text="#{password}">New password:</td>
+                    <td><input type="password" id="password" name="password" /></td>
+                </tr>
+                <tr>
+                    <td th:text="#{repeatPassword}">Repeat password:</td>
+                    <td><input type="password" name="repeatedPassword" /></td>
+                </tr>
+                <tr>
+                    <td th:text="#{verCode}">
+                        Verification code:
+                    </td>
+                    <td>
+                        <!-- 验证码-->
+                        <input type="text" class="topAlign" id="verify" name="verify" />
+                        <canvas width="100" height="40" id="verifyCanvas"></canvas>
+                        <img id="code_img">
+                        <div id="validateMsg" style="color: red"></div>
+                    </td>
+                </tr>
+            </table>
+
+            <table th:replace="account/includeAccountFields::accountTable"></table>
+            <h3 th:replace="account/includeAccountFields::h3"></h3>
+            <table th:replace="account/includeAccountFields::profileTable"></table>
+
+            <input type="submit" th:value="#{Save}">
+
+        </form>
+    </div>
+</div>
+
+<footer th:replace="common/template_menu::footer">
+</footer>
+
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/register.js"></script>
+<script type="text/javascript" src="../js/Verification.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/template_head::head('Login')">
+
+</head>
+
+<body>
+
+    <header th:replace="common/template_menu::header">
+    </header>
+
+    <div id="Content">
+        <div id="Catalog">
+            <a href="/account/login?lang=en_US" > English</a>
+            <a href="/account/login?lang=zh_CN" > 中文</a>
+            <form th:action="@{/account/login}" method="post" onsubmit="return validate()">
+
+                <p th:text="#{please}">Please enter your username and password.</p>
+                <p>
+                    <font th:text="#{username}">Username:</font>
+                    <input type="text" id="username" name="username">
+                    <br/><br/>
+                    <font th:text="#{password}">Password:</font>
+                    <input type="password" id="password" name="password">
+                    <br/><br/>
+                    <font th:text="#{verCode}"></font>
+                    <!-- 验证码-->
+                    <input type="text" class="topAlign" id="verify" name="verify" />
+                    <canvas width="100" height="40" id="verifyCanvas"></canvas>
+                    <img id="code_img">
+                    <div id="validateMsg" style="color: red"></div>
+
+                </p>
+                <input type="submit" name="signon" th:value="#{Login}">
+            </form>
+            <font th:text="#{need}">Need a user name and password?</font>
+            <a href="/account/viewRegisterForm" th:text="#{registerNow}">
+                Register Now!
+            </a>
+        </div>
+    </div>
+
+    <footer th:replace="common/template_menu::footer">
+    </footer>
+
+    <script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../js/Verification.js"></script>
+</body>
+</html>

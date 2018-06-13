@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/template_head::head('Product:'+${product.name})">
+
+    </head>
+    <body>
+        <header th:replace="common/template_menu::header">
+        </header>
+
+        <div id="Content">
+            <div id="BackLink">
+                <a th:href="@{/catalog/category(categoryId=${product.categoryId})}" th:text="'Return to '+${product.categoryId}">
+                    Return to sessionScope.product.categoryId
+                </a>
+            </div>
+
+            <div id="Catalog">
+
+                <h2 th:text="${product.name}">product.name</h2>
+
+                <table>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Product ID</th>
+                        <th>Description</th>
+                        <th>List Price</th>
+                        <th>&nbsp;</th>
+                    </tr>
+
+                    <tr th:each="item:${itemList}">
+                        <td>
+                            <a th:href="@{/catalog/item(itemId=${item.itemId})}" th:text="${item.itemId}">item.itemId</a>
+                        </td>
+                        <td th:text="${item.product.productId}">
+                            item.product.productId
+                        </td>
+                        <td th:text="${item.attribute1==null?'':item.attribute1}+' '+${item.attribute2==null?'':item.attribute2}
+                                +' '+${item.attribute3==null?'':item.attribute3}+' '+${item.attribute4==null?'':item.attribute4}
+                                +' '+${item.attribute5==null?'':item.attribute5}+' '+${product.name==null?'':product.name}">
+                            ${item.attribute1} ${item.attribute2} ${item.attribute3}
+                            ${item.attribute4} ${item.attribute5} ${sessionScope.product.name}
+                        </td>
+                        <td  th:text="'$'+${#numbers.formatDecimal(item.listPrice, 1,2)}">
+
+                        </td>
+                        <td>
+                            <a class="Button" th:href="@{/cart/cart(workingItemId=${item.itemId})}">Add to Cart</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <footer th:replace="common/template_menu::footer">
+        </footer>
+    </body>
+</html>

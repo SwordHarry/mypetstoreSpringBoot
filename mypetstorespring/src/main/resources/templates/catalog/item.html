@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/template_head::head('Item:'+${item.itemId})">
+
+    </head>
+    <body>
+        <header th:replace="common/template_menu::header">
+        </header>
+
+        <div id="Content">
+            <div id="BackLink">
+                <a th:href="@{/catalog/product(productId=${product.productId})}" th:text="'Return to '+${product.productId}">Return to ${sessionScope.product.productId}</a>
+            </div>
+
+            <div id="Catalog">
+
+                <table>
+                    <tr>
+                        <td th:utext="${item.getProduct().getDescription()}">
+                            <!--   th:utext 是会解析图片的  -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b th:text="${item.itemId}"> ${sessionScope.item.itemId} </b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>
+                                <font size="4" th:text="${item.attribute1==null?'':item.attribute1}+' '+${item.attribute2==null?'':item.attribute2}
+                                +' '+${item.attribute3==null?'':item.attribute3}+' '+${item.attribute4==null?'':item.attribute4}
+                                +' '+${item.attribute5==null?'':item.attribute5}+' '+${product.name==null?'':product.name}">
+                                    ${sessionScope.item.attribute1}${sessionScope.item.attribute2}
+                                    ${sessionScope.item.attribute3}${sessionScope.item.attribute4}
+                                    ${sessionScope.item.attribute5}${sessionScope.product.name}
+                                </font>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td th:text="${product.name}">${sessionScope.product.name}</td>
+                    </tr>
+                    <tr>
+                        <td th:if="${item.quantity} le '0'">
+                            Back ordered.
+                        </td>
+                        <td th:if="${item.quantity} gt '0'" th:text="${item.quantity}+' in stock.'">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td th:text="'$'+${#numbers.formatDecimal(item.listPrice, 1,2)}">
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <a class="Button" th:href="@{/cart/cart(workingItemId=${item.itemId})}">Add to Cart</a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <footer th:replace="common/template_menu::footer">
+        </footer>
+    </body>
+</html>
